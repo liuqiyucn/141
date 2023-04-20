@@ -21,18 +21,14 @@ def main():
     nout = 4  # steps between outputs
     dt = 1.0 / 32.0  # timestep for integration
 
-    output_t = []
-    output_x= []
-
     # now, loop performing integration
     for nstep in range(mstep):  # loop mstep times in all
         if nstep % nout == 0:  # if time to output state
-            printstate(x, v, n, tnow)  # then call output routine]
+            printstate(x, v, n, tnow)  # then call output routine
         leapstep(x, v, n, dt)  # take integration step
         tnow = tnow + dt  # and update value of time
     if mstep % nout == 0:  # if last output wanted
         printstate(x, v, n, tnow)  # then output last step
-
 
 
 def leapstep(x, v, n, dt):
@@ -68,8 +64,8 @@ def accel(a, x, n):
         n (int): number of points
     """
     for i in range(n):  # loop over all points...
-        a[i] = -x[i]  # use linear force law
-
+        #a[i] = -x[i]  # use linear force law
+        a[i] = -np.sin(x[i]) # sin 
 
 def printstate(x, v, n, tnow):
     """PRINTSTATE: output system state variables.
@@ -80,7 +76,6 @@ def printstate(x, v, n, tnow):
         tnow (float): current value of time
     """
     for i in range(n):  # loop over all points...
-        #print("%8.4f%4d%12.6f%12.6f" % (tnow, i, x[i], v[i]))
         print("%8.4f%4d%12.6f%12.6f" % (tnow, i, x[i], v[i]))
 
 if __name__ == "__main__":
