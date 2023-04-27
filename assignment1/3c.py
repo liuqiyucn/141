@@ -1,70 +1,31 @@
+from matplotlib import pyplot as plt
 import numpy as np
-import matplotlib.pyplot as plt
-import os
-import sympy
-from pylab import *
-import matplotlib.animation as animation
-from IPython import display
-import math
+from mpl_toolkits.mplot3d import Axes3D
+from matplotlib import animation
+import numpy as np
+import pandas as pd
 
-# analytic expression
-def analytic(epsilon, a, theta):
-    theta = math.radians(theta) # convert to radian
-    radius = a*(1-epsilon**2)/(1+epsilon*np.cos(theta))
-    return radius*np.cos(theta),radius*np.cos(theta)
+# Animation for earth
+# initialization
 
-earth_x = []
-earth_y = []
-# earth 
-for i in range(360):
-    x,y = analytic(0.01671, 1, i)
-    earth_x.append(x)
-    earth_y.append(y)
+# getting planet data analytic
+data_ana = pd.read_csv('ana.csv')
+earth_ana = data_ana[data_ana.planet_label == 2]
+earth_ana = earth_ana.to_numpy()
 
-mars_x = []
-mars_y = []
-# earth 
-for i in range(360):
-    x,y = analytic(0.093, 1.5273, i)
-    mars_x.append(x)
-    mars_y.append(y)
+# getting planet data simulation
+data_sim = pd.read_csv('sim.csv')
+earth_sim = data_sim[data_sim.planet_label == 2]
+earth_sim = earth_sim.to_numpy()
+print(earth_sim)
 
-x_plot = []
-y_plot = []
+fig = plt.figure(figsize=(12,10))
+ax = fig.add_subplot(projection='3d')
+ax.plot(earth_sim[:,3], earth_sim[:,4], earth_sim[:,5], color = "blue", label = "Analytic")
 
-figure(1)
-# animation
-for i in range(len(earth_x)):
-
-    x_plot.append(earth_x[i])
-    y_plot.append(earth_y[i])
-     
-    # Plotting graph
-    plt.plot(x_plot, y_plot, color = 'green')
-    plt.pause(0.01)
-
-plt.show()
-
-figure(2)
-
-x_plot = x_plot.clear()
-y_plot = y_plot.clear()
-x_plot = []
-y_plot = []
-
-#animation
-for i in range(len(mars_x)):
-
-    x_plot.append(mars_x[i])
-    y_plot.append(mars_y[i])
- 
-    # Mention x and y limits to define their range
-    plt.xlim(-5,25)
-    plt.ylim(-5,5)
-
-     
-    # Plotting graph
-    plt.plot(x_plot, y_plot, color = 'red')
-    plt.pause(0.01)
-
+# Setting the axes properties
+ax.set_xlabel('X')
+ax.set_ylabel('Y')
+ax.set_zlabel('Z')
+ax.set_title('Earth Animation')
 plt.show()
