@@ -25,9 +25,9 @@ def file_process(s):
     result = np.array(result)
     return result
 
-result1 = file_process("result1.txt")
-result2 = file_process("result2.txt")
-result3 = file_process("result3.txt")
+result1 = file_process("result1_l.txt")
+result2 = file_process("result2_l.txt")
+result3 = file_process("result3_l.txt")
 
 time = result1[:,0]
 x = result1[:,2]
@@ -53,7 +53,7 @@ for i in range(x.size):
     plt.plot(x_plot, y_plot, color = 'green')
     plt.pause(0.01)
 
-
+plt.cla()
 
 figure(2)
 time = result2[:,0]
@@ -73,7 +73,7 @@ for i in range(x.size):
     y_plot.append(v[i])
  
     # Mention x and y limits to define their range
-    plt.xlim(-5,25)
+    plt.xlim(-5,5)
     plt.ylim(-5,5)
     plt.title("(2,0) initial value phase plot")
     plt.xlabel("x")
@@ -83,7 +83,7 @@ for i in range(x.size):
     plt.plot(x_plot, y_plot, color = 'red')
     plt.pause(0.01)
 
-
+plt.cla()
 figure(3)
 time = result3[:,0]
 x = result3[:,2]
@@ -102,7 +102,7 @@ for i in range(x.size):
     y_plot.append(v[i])
  
     # Mention x and y limits to define their range
-    plt.xlim(-5,25)
+    plt.xlim(-5,5)
     plt.ylim(-5,5)
     plt.title("(0,3) initial value phase plot")
     plt.xlabel("x")
